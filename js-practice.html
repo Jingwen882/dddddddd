@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 基础练习</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #e67e22;
+            border-bottom: 2px solid #e67e22;
+            padding-bottom: 10px;
+        }
+        .output {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-family: 'Consolas', monospace;
+            white-space: pre-wrap;
+        }
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2980b9;
+        }
+        code {
+            background: #ecf0f1;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript 基础练习</h1>
+
+    <!-- ==================== 1. 变量定义 ==================== -->
+    <div class="section">
+        <h2>1. 变量定义</h2>
+        <p><strong>知识点：</strong>JavaScript 中使用 <code>var</code>、<code>let</code>、<code>const</code> 定义变量</p>
+        <ul>
+            <li><code>var</code>：函数作用域，可重复声明，存在变量提升</li>
+            <li><code>let</code>：块级作用域，不可重复声明</li>
+            <li><code>const</code>：块级作用域，定义常量，初始化后不可重新赋值</li>
+        </ul>
+        <button onclick="runVariableDemo()">运行示例</button>
+        <div class="output" id="varOutput">点击按钮查看输出...</div>
+    </div>
+
+    <!-- ==================== 2. 变量类型 ==================== -->
+    <div class="section">
+        <h2>2. 变量类型</h2>
+        <p><strong>知识点：</strong>JavaScript 基本数据类型和引用类型</p>
+        <ul>
+            <li><strong>基本类型：</strong>string、number、boolean、null、undefined、symbol、bigint</li>
+            <li><strong>引用类型：</strong>Object、Array、Function、Date、RegExp 等</li>
+        </ul>
+        <button onclick="runTypeDemo()">运行示例</button>
+        <div class="output" id="typeOutput">点击按钮查看输出...</div>
+    </div>
+
+    <!-- ==================== 3. 表达式 ==================== -->
+    <div class="section">
+        <h2>3. 表达式</h2>
+        <p><strong>知识点：</strong>算术、比较、逻辑、条件表达式</p>
+        <ul>
+            <li><strong>算术表达式：</strong>+、-、*、/、%、**（幂）</li>
+            <li><strong>比较表达式：</strong>==、===、!=、!==、&gt;、&lt;、&gt;=、&lt;=</li>
+            <li><strong>逻辑表达式：</strong>&&、||、!</li>
+            <li><strong>条件表达式：</strong>三元运算符 <code>condition ? value1 : value2</code></li>
+        </ul>
+        <button onclick="runExpressionDemo()">运行示例</button>
+        <div class="output" id="exprOutput">点击按钮查看输出...</div>
+    </div>
+
+    <!-- ==================== 4. 流程控制 ==================== -->
+    <div class="section">
+        <h2>4. 流程控制</h2>
+        <p><strong>知识点：</strong>条件语句和循环语句</p>
+        <ul>
+            <li><strong>条件语句：</strong>if...else、switch...case</li>
+            <li><strong>循环语句：</strong>for、while、do...while、for...in、for...of</li>
+            <li><strong>控制语句：</strong>break（跳出循环）、continue（跳过本次迭代）</li>
+        </ul>
+        <button onclick="runControlDemo()">运行示例</button>
+        <div class="output" id="controlOutput">点击按钮查看输出...</div>
+    </div>
+
+    <!-- ==================== 5. 函数 ==================== -->
+    <div class="section">
+        <h2>5. 函数</h2>
+        <p><strong>知识点：</strong>函数的定义和调用方式</p>
+        <ul>
+            <li><strong>函数声明：</strong><code>function name() {}</code></li>
+            <li><strong>函数表达式：</strong><code>const name = function() {}</code></li>
+            <li><strong>箭头函数：</strong><code>const name = () => {}</code></li>
+            <li><strong>参数默认值：</strong><code>function(a = 1) {}</code></li>
+            <li><strong>rest 参数：</strong><code>function(...args) {}</code></li>
+            <li><strong>返回值：</strong>使用 <code>return</code> 返回结果</li>
+        </ul>
+        <button onclick="runFunctionDemo()">运行示例</button>
+        <div class="output" id="funcOutput">点击按钮查看输出...</div>
+    </div>
+
+    <script>
+        // ==================== 1. 变量定义 ====================
+        function runVariableDemo() {
+            let output = [];
+
+            // var 的特点：函数作用域，可重复声明
+            var varVariable = "我是var";
+            var varVariable = "可以重复声明"; // 不会报错
+            output.push("var 变量: " + varVariable);
+
+            // let 的特点：块级作用域，不可重复声明
+            let letVariable = "我是let";
+            // let letVariable = "重复声明会报错"; // 这行会报错，已注释
+            output.push("let 变量: " + letVariable);
+
+            // const 的特点：块级作用域，定义常量，初始化后不可重新赋值
+            const CONSTANT = "我是常量";
+            // CONSTANT = "修改常量会报错"; // 这行会报错，已注释
+            output.push("const 常量: " + CONSTANT);
+
+            // 块级作用域示例
+            if (true) {
+                let blockVar = "块内变量";
+                var functionVar = "函数级变量";
+                output.push("块内 let: " + blockVar);
+                output.push("块内 var: " + functionVar);
+            }
+            // blockVar 在块外不可访问（报错）
+            output.push("块外 var 仍可访问: " + functionVar);
+
+            // 输出结果
+            document.getElementById("varOutput").textContent = output.join("\n");
+        }
+
+        // ==================== 2. 变量类型 ====================
+        function runTypeDemo() {
+            let output = [];
+
+            // 基本数据类型
+            const stringType = "Hello";           // 字符串
+            const numberType = 42;                  // 数字
+            const booleanType = true;               // 布尔值
+            const nullType = null;                  // null（空值）
+            const undefinedType = undefined;        // 未定义
+            const symbolType = Symbol("id");        // Symbol（唯一标识）
+            const bigintType = 9007199254740991n;   // BigInt（大整数）
+
+            output.push("=== 基本数据类型 ===");
+            output.push("string: " + stringType + " (类型: " + typeof stringType + ")");
+            output.push("number: " + numberType + " (类型: " + typeof numberType + ")");
+            output.push("boolean: " + booleanType + " (类型: " + typeof booleanType + ")");
+            output.push("null: " + nullType + " (类型: " + typeof nullType + ")");
+            output.push("undefined: " + undefinedType + " (类型: " + typeof undefinedType + ")");
+            output.push("symbol: " + symbolType.toString() + " (类型: " + typeof symbolType + ")");
+            output.push("bigint: " + bigintType + " (类型: " + typeof bigintType + ")");
+
+            // 引用类型
+            const arrayType = [1, 2, 3];                    // 数组
+            const objectType = { name: "张三", age: 25 };   // 对象
+            const functionType = function() {};             // 函数
+            const dateType = new Date();                     // 日期
+
+            output.push("\n=== 引用数据类型 ===");
+            output.push("array: [" + arrayType + "] (类型: " + typeof arrayType + ")");
+            output.push("object: " + JSON.stringify(objectType) + " (类型: " + typeof objectType + ")");
+            output.push("function: " + functionType.toString().slice(0, 30) + "... (类型: " + typeof functionType + ")");
+            output.push("date: " + dateType.toString() + " (类型: " + typeof dateType + ")");
+
+            // 类型检测
+            output.push("\n=== 类型检测 ===");
+            output.push("Array.isArray(arrayType): " + Array.isArray(arrayType));
+            output.push("arrayType instanceof Array: " + (arrayType instanceof Array));
+            output.push("null === null: " + (null === null));
+            output.push("NaN === NaN: " + (NaN === NaN) + " (NaN不等于自身，应用 isNaN() 检测)");
+            output.push("isNaN(NaN): " + isNaN(NaN));
+
+            document.getElementById("typeOutput").textContent = output.join("\n");
+        }
+
+        // ==================== 3. 表达式 ====================
+        function runExpressionDemo() {
+            let output = [];
+
+            // 算术表达式
+            output.push("=== 算术表达式 ===");
+            let a = 10, b = 3;
+            output.push("a = " + a + ", b = " + b);
+            output.push("a + b = " + (a + b));   // 加法
+            output.push("a - b = " + (a - b));   // 减法
+            output.push("a * b = " + (a * b));   // 乘法
+            output.push("a / b = " + (a / b));   // 除法
+            output.push("a % b = " + (a % b));   // 取余
+            output.push("a ** b = " + (a ** b)); // 幂运算
+
+            // 比较表达式
+            output.push("\n=== 比较表达式 ===");
+            let x = 5, y = "5";
+            output.push("x = " + x + ", y = " + y + " (y是字符串)");
+            output.push("x == y: " + (x == y) + " (只比较值，相等)");
+            output.push("x === y: " + (x === y) + " (严格比较，连类型也比较)");
+            output.push("x != y: " + (x != y) + " (值不等)");
+            output.push("x !== y: " + (x !== y) + " (严格不等，类型也要比较)");
+            output.push("x > 3: " + (x > 3));
+            output.push("x <= 5: " + (x <= 5));
+
+            // 逻辑表达式
+            output.push("\n=== 逻辑表达式 ===");
+            let p = true, q = false;
+            output.push("p = " + p + ", q = " + q);
+            output.push("p && q: " + (p && q) + " (与，都真才为真)");
+            output.push("p || q: " + (p || q) + " (或，一真即为真)");
+            output.push("!p: " + (!p) + " (非，取反)");
+            output.push("p && !q: " + (p && !q) + " (组合逻辑)");
+
+            // 条件表达式（三元运算符）
+            output.push("\n=== 条件表达式 ===");
+            let age = 20;
+            let result = age >= 18 ? "成年人" : "未成年人";
+            output.push("age = " + age);
+            output.push("age >= 18 ? '成年人' : '未成年人' = " + result);
+
+            // 复杂表达式
+            output.push("\n=== 表达式优先级 ===");
+            let result2 = 2 + 3 * 4;           // 乘法优先级高于加法
+            let result3 = (2 + 3) * 4;          // 括号可改变优先级
+            output.push("2 + 3 * 4 = " + result2);
+            output.push("(2 + 3) * 4 = " + result3);
+
+            document.getElementById("exprOutput").textContent = output.join("\n");
+        }
+
+        // ==================== 4. 流程控制 ====================
+        function runControlDemo() {
+            let output = [];
+
+            // if...else 条件语句
+            output.push("=== if...else 条件语句 ===");
+            let score = 85;
+            output.push("score = " + score);
+            if (score >= 90) {
+                output.push("评级: A (优秀)");
+            } else if (score >= 80) {
+                output.push("评级: B (良好)");
+            } else if (score >= 60) {
+                output.push("评级: C (及格)");
+            } else {
+                output.push("评级: D (不及格)");
+            }
+
+            // switch...case 多分支语句
+            output.push("\n=== switch...case 多分支语句 ===");
+            let day = 3;
+            output.push("day = " + day);
+            switch (day) {
+                case 1:
+                    output.push("今天是星期一");
+                    break;
+                case 2:
+                    output.push("今天是星期二");
+                    break;
+                case 3:
+                    output.push("今天是星期三");
+                    break;
+                case 4:
+                    output.push("今天是星期四");
+                    break;
+                case 5:
+                    output.push("今天是星期五");
+                    break;
+                default:
+                    output.push("今天是周末");
+            }
+
+            // for 循环
+            output.push("\n=== for 循环 ===");
+            let forArray = [];
+            for (let i = 0; i < 5; i++) {
+                forArray.push(i);
+            }
+            output.push("for循环 (i=0; i<5; i++): [" + forArray.join(", ") + "]");
+
+            // for...in 循环（遍历对象属性）
+            output.push("\n=== for...in 循环 ===");
+            const person = { name: "张三", age: 25, city: "北京" };
+            let personKeys = [];
+            for (let key in person) {
+                personKeys.push(key + "=" + person[key]);
+            }
+            output.push("遍历对象: {" + personKeys.join(", ") + "}");
+
+            // for...of 循环（遍历可迭代对象）
+            output.push("\n=== for...of 循环 ===");
+            let fruits = ["苹果", "香蕉", "橙子"];
+            let fruitList = [];
+            for (let fruit of fruits) {
+                fruitList.push(fruit);
+            }
+            output.push("遍历数组: [" + fruitList.join(", ") + "]");
+
+            // while 循环
+            output.push("\n=== while 循环 ===");
+            let whileCount = 0;
+            let whileResult = [];
+            while (whileCount < 3) {
+                whileResult.push(whileCount);
+                whileCount++;
+            }
+            output.push("while循环 (count < 3): [" + whileResult.join(", ") + "]");
+
+            // do...while 循环（至少执行一次）
+            output.push("\n=== do...while 循环 ===");
+            let doWhileCount = 0;
+            let doWhileResult = [];
+            do {
+                doWhileResult.push(doWhileCount);
+                doWhileCount++;
+            } while (doWhileCount < 3);
+            output.push("do...while循环 (至少执行一次): [" + doWhileResult.join(", ") + "]");
+
+            // break 和 continue
+            output.push("\n=== break 和 continue ===");
+            let breakContinueResult = [];
+            for (let i = 0; i < 5; i++) {
+                if (i === 2) {
+                    continue; // 跳过 i === 2 的情况
+                }
+                if (i === 4) {
+                    break; // 遇到 i === 4 时退出循环
+                }
+                breakContinueResult.push(i);
+            }
+            output.push("continue跳过2，break在4停止: [" + breakContinueResult.join(", ") + "]");
+
+            document.getElementById("controlOutput").textContent = output.join("\n");
+        }
+
+        // ==================== 5. 函数 ====================
+        function runFunctionDemo() {
+            let output = [];
+
+            // 函数声明
+            output.push("=== 函数声明 ===");
+            function greet(name) {
+                return "你好, " + name + "!";
+            }
+            output.push("greet('小明'): " + greet("小明"));
+
+            // 函数表达式
+            output.push("\n=== 函数表达式 ===");
+            const square = function(x) {
+                return x * x;
+            };
+            output.push("square(5): " + square(5));
+
+            // 箭头函数
+            output.push("\n=== 箭头函数 ===");
+            const multiply = (a, b) => a * b;
+            output.push("multiply(3, 4): " + multiply(3, 4));
+
+            // 箭头函数（单参数可省略括号）
+            const double = x => x * 2;
+            output.push("double(7): " + double(7));
+
+            // 箭头函数（多行函数体需要 return）
+            const getAbsolute = x => {
+                if (x < 0) {
+                    return -x;
+                }
+                return x;
+            };
+            output.push("getAbsolute(-10): " + getAbsolute(-10));
+
+            // 参数默认值
+            output.push("\n=== 参数默认值 ===");
+            function introduce(name, age = 18, city = "未知") {
+                return name + ", " + age + "岁, 来自" + city;
+            }
+            output.push("introduce('张三'): " + introduce("张三"));
+            output.push("introduce('李四', 25): " + introduce("李四", 25));
+            output.push("introduce('王五', 30, '上海'): " + introduce("王五", 30, "上海"));
+
+            // rest 参数
+            output.push("\n=== rest 参数 ===");
+            function sum(...numbers) {
+                return numbers.reduce((acc, n) => acc + n, 0);
+            }
+            output.push("sum(1, 2, 3, 4, 5): " + sum(1, 2, 3, 4, 5));
+
+            function concat(separator, ...strings) {
+                return strings.join(separator);
+            }
+            output.push("concat('-', 'a', 'b', 'c'): " + concat("-", "a", "b", "c"));
+
+            // .arguments 对象（仅在普通函数中可用）
+            output.push("\n=== arguments 对象 ===");
+            function showArgs() {
+                let args = Array.from(arguments);
+                return "arguments: [" + args.join(", ") + "]";
+            }
+            output.push("showArgs(1, 2, 3): " + showArgs(1, 2, 3));
+
+            // 递归函数
+            output.push("\n=== 递归函数 ===");
+            function factorial(n) {
+                if (n <= 1) return 1;
+                return n * factorial(n - 1);
+            }
+            output.push("factorial(5): " + factorial(5));
+
+            // 回调函数
+            output.push("\n=== 回调函数 ===");
+            function processNumber(num, callback) {
+                return callback(num);
+            }
+            let result = processNumber(10, x => x * 2);
+            output.push("processNumber(10, x => x * 2): " + result);
+
+            // 立即执行函数 (IIFE)
+            output.push("\n=== 立即执行函数 (IIFE) ===");
+            (function() {
+                output.push("IIFE 执行: 函数立即运行，不污染全局作用域");
+            })();
+
+            // 闭包
+            output.push("\n=== 闭包 ===");
+            function createCounter() {
+                let count = 0;
+                return function() {
+                    count++;
+                    return count;
+                };
+            }
+            const counter = createCounter();
+            output.push("counter(): " + counter() + " (第1次)");
+            output.push("counter(): " + counter() + " (第2次)");
+            output.push("counter(): " + counter() + " (第3次)");
+
+            document.getElementById("funcOutput").textContent = output.join("\n");
+        }
+    </script>
+</body>
+</html>
